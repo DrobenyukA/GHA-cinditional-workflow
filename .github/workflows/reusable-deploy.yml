@@ -1,0 +1,31 @@
+name: Reusable Deploy
+on:
+  workflow_call:
+    inputs:
+      artifact-name:
+        description: 'Name of the artifact to deploy'
+        required: false
+        default: 'dist'
+        type: string
+    outputs:
+      deployment-status:
+        description: 'Status of the deployment'
+        value: ${{ jobs.deploy.outputs.outcome }}
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/download-artifact@v3
+        with:
+          name: ${{ inputs.artifact-name }}
+      - name: List files
+        run: ls -la
+      - name: Deploy to environment
+        # Simulate deployment process
+        run: echo "Deploying to environment..."
+      - name: Set deployment status
+        id: set-status
+        run: echo "step-result=success" >> $GITHUB_OUTPUT
+
+        
