@@ -2,7 +2,7 @@ name: Multiple Builds
 on:
   pull_request:
     branches:
-      - main
+      - master
 jobs:
   build: 
     continue-on-error: true
